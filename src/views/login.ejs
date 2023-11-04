@@ -1,0 +1,327 @@
+ <!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+        <form action = "/login" method = "post">
+                Enter name : <input type = "text" name = "logname" id = "t1"/><br/>
+                Enter password : <input type = "text" name = "logpass"/><br/>
+                <input type = "submit" value = "Submit" />&nbsp;&nbsp;
+                <p>Don't have an account ? <a href="/register">Register</a></p>
+        </form>
+</body>
+</html> 
+
+ -->
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Login form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body >
+    <div class="wrapper" div style="text-align:center">
+        <div class="modalForm">
+            <div class="label">Login</div>
+            <div class="actionBtns">
+                <button class="actionBtn studentlogin">student login</button> <!--signup and login 2 toggle button-->
+                <button class="actionBtn teacherlogin">teacher login</button>  <!--signup and login 2 toggle button-->
+                <button class="moveBtn">student login</button>  <!--button which is moving-->
+            </div>
+            <!-- <div id="error"></div> -->
+
+            <div class="userForm">
+                <form action="/student_login" method="post" class="form stud studentForm"> <!--for the signup form class in our keep as stud-->
+                    <div class="inputGroup">
+                        <input type="text" placeholder="roll no." autocomplete="offf" id = "studuser" name = "student_roll" oninput="this.value=value.replace(/[^0-9]/g,'');">
+                    </div>
+                    <div class="inputGroup">
+                        <input type="password" placeholder="password" autocomplete="offf" id = "studpassword" name = "student_password">
+                    </div>
+                    <button type="submit" class="submitBtn" onclick="studverify()">Login</button> <!--submit signup button-->
+
+                    <br><a href="/student_register" >
+                        register for student
+                    </a>
+                </form>
+
+                <form action="/login_teacher" method = "post" class="form teach">  <!--Teacher login form 2nd-->
+                    <div class="inputGroup">
+                        <input type="text" placeholder="user id" autocomplete="offf" id = "teachuser" name = "teacher_name" oninput="this.value=value.replace(/[^0-9]/g,'');">
+                    </div>
+                    <div class="inputGroup">
+                        <input type="password" placeholder="password" autocomplete="offf" id="teachpassword" name = "teacher_password">
+                    </div>
+                    <!-- <div class="inputGroup">
+                        <input type="password" placeholder="unique code" autocomplete="offf" id="teachuniquecode">
+                    </div> -->
+                    <input type="submit" class="submitBtn" onclick="teacherVerify()" value="Login"> <!--its login button-->
+                    <br><a href="/register_teacher" >
+                    register for teacher
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <% if(locals.s) { %>
+        <script>
+              let sucess = '<%=s%>';
+          alert(sucess);
+        </script>
+        <% } %>
+        
+    <% if(locals.msg) { %>
+        <script>
+              let msg = '<%=msg %>';
+          alert(msg);
+        </script>
+        <% } %>
+
+    <% if(locals.error) { %>
+        <script>
+              let error = '<%=error %>';
+          alert(error);
+        </script>
+        <% } %>
+
+
+        <% if(locals.unauthorize) { %>
+            <script>
+                  let unauthorize = '<%= unauthorize %>';
+              alert(unauthorize);
+            </script>
+            <% } %>
+
+            <% if(locals.logout_teacher) { %>
+                <script>
+                      let logout_teacher = '<%= logout_teacher %>';
+                  alert(logout_teacher);
+                </script>
+                <% } %>
+
+                <% if(locals.logout_student) { %>
+                    <script>
+                          let logout_student = '<%= logout_student %>';
+                      alert(logout_student);
+                    </script>
+                    <% } %>
+
+                    <% if(locals.not_device) { %>
+                        <script>
+                              let not_device = '<%= not_device %>';
+                          alert(not_device);
+                        </script>
+                        <% } %>
+        
+
+
+    <script> 
+
+const studentlogin = document.querySelector(".studentlogin"); //here for signup button toggling wala for ours it will be student login
+const teacherlogin = document.querySelector(".teacherlogin"); //here for login button toggling wala for ours it will be teacher login
+const moveBtn = document.querySelector(".moveBtn");  //here button which is moving signup button for us it will be student login
+const stud = document.querySelector(".stud"); // the toggle text change here signup in ours student logins
+const teach = document.querySelector(".teach"); //here for the login in ours will come teacher login 
+
+teacherlogin.addEventListener("click",()=>{ // teacher login block
+    moveBtn.classList.add("rightBtn");
+    teach.classList.add("teachForm");
+    stud.classList.remove("studentForm");
+    moveBtn.innerHTML = "teacher login"; // this is for dynamically changing the text in 2nd toggle in ours will come teacher login
+})
+
+studentlogin.addEventListener("click",()=>{ // student login block
+    moveBtn.classList.remove("rightBtn");
+    teach.classList.remove("teachForm");
+    stud.classList.add("studentForm");
+    moveBtn.innerHTML = "student login"; // this is for dynamically changing the text in ours will come student login 
+})
+
+function studverify()
+{
+studuser = document.getElementById("studuser");
+studpassword = document.getElementById("studpassword");
+if(studuser.value=="" || studpassword.value == "" )
+{
+    alert("Please enter details");
+}
+}
+
+
+function teacherVerify()
+{
+    teachuser = document.getElementById("teachuser");
+    teachpassword= document.getElementById("teachpassword");
+    teachunqiuecode = document.getElementById("teachuniquecode");
+
+    if(teachuser.value==""||teachpassword.value==""||teachunqiuecode.value=="")
+    {
+    alert("Please enter all the details");
+    }
+}
+
+
+
+</script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+
+}
+.wrapper{
+    width: 100vw;
+    height: 100vh; 
+    /* background-color: #d9d6dddc;     */
+    background: linear-gradient(135deg, #50a7e1, #d433d2);
+    position: fixed;
+    display: flex;
+    /* background-image: url("https://img.freepik.com/premium-photo/blackboard-chalkboard-with-wooden-edge-background_73523-392.jpg"); */
+    background-size: 120%;
+    justify-content: center;
+    align-items: center;
+}
+
+.label{  /* login text*/  
+    padding: 15px 130px;     
+	font-size: 35px;
+	font-weight: bold;
+	color: #000000;
+}
+div.buttonHolder{
+    text-align: center;
+}
+.modalForm{
+    width: 400px;
+    height: 560px; 
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    zoom:355%;
+}
+.actionBtns{    
+    width: 90%;
+    background-color: royalblue;
+    margin-top: 40px;
+    margin-bottom:20px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.actionBtn{
+    padding: 1em;
+    width: 50%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+}
+.moveBtn{
+    position: absolute;
+    width: 50%; 
+    height: 90%;
+    margin: 2px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-color: #fff;
+    font-size: 0.8em;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    transform: translateX(0);
+    transition: all 0.2s ease-in-out;
+}
+.rightBtn{
+    transform: translateX(98%);
+    transition: all 0.2s ease-in-out;
+}
+.inputGroup{
+    width: 340px;
+    margin: 2em 0; 
+    background-color: rgba(236, 240, 241, 0.977);
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    font-weight: 500;
+}
+.inputGroup input{
+    width: 100%; 
+    padding: 1em 1.5em;
+    background-color: transparent;
+    border: none;
+    border-radius: 50px;
+}
+
+.inputGroup input:focus{
+    outline: none;
+}
+.submitBtn{
+    width: 150px;
+    padding: 1em;
+    margin: 2em 0;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background-color: rgba(236, 240, 241, 0.977);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    justify-content: center;
+}
+.submitBtn:hover{
+    background-color: royalblue;
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+.form{
+    display: none;
+}
+.studentForm{
+    display: block;
+}
+.teachForm{
+    display: block;
+}
+
+
+/* media qurey */
+
+@media  (max-width:500px){
+    .modalForm{
+        
+        width:82vw;
+        zoom:0% !important;
+    }
+    .inputGroup{
+        width: 70vw;
+    }
+}
+</style>
+</body>
+</html>

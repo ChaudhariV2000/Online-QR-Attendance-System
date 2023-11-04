@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header class="header">
+     
+        <a href="#" class="logo">Student</a>
+       
+        <input class="side-menu" type="checkbox" id="side-menu" />
+        <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+   
+        <nav class="nav">
+          <ul class="menu" >
+            <li id="one" onclick="chnage(this)"><a href="/student_menu"><b id="one" class="b">View Attendance</b></a></li>
+            <li id="two" onclick="chnage(this)"><a href="/scanner"><b class="b">Scan QR</b></a> </li>
+            <li id="three" onclick="chnage(this)""><a href="/logout_student"><b class="b" id="three">Logout</b></a></li>
+          </ul>
+        </nav>
+      </header>
+        <div class="background_color">
+            <div class="main">
+
+    <div style="width: 500px" id="reader"></div>
+    <script src="https://unpkg.com/html5-qrcode@2.3.4/html5-qrcode.min.js" ></script>
+
+        <div id="reader" style="width: 700px"></div> 
+
+       <form action = "/scanner" method="post" id = "form">
+        <input type = "text" name = "qrdata" id = "t1">
+      </form>
+      </div>
+      </div>
+      
+      <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+        /* import font */
+
+        #my {
+            zoom: 100%;
+        }
+
+        :root {
+            --white: #f9f9f9;
+            --black: #36383F;
+            --gray: #85888C;
+        }
+
+        /* variables*/
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--white);
+            font-family: "Poppins", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .header {
+            background-color: var(--black);
+            box-shadow: 1px 1px 5px 0px var(--gray);
+            position: sticky;
+            top: 0;
+            height: 200px;
+            ;
+            border: 2px solid white;
+            width: 100%;
+        }
+
+        /* Logo */
+        .logo {
+            display: inline-block;
+            color: var(--white);
+            font-size: 100px;
+            margin-left: 80px;
+            /* text-align: center; */
+            margin-top: 25px;
+        }
+
+        .nav {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: var(--black);
+            overflow: hidden;
+
+        }
+
+        .menu a {
+
+            display: block;
+            padding-top: 80px;
+            ;
+            padding-right: 320px;
+            font-size: 60px;
+            color: var(--white);
+        }
+
+        .menu a:hover {
+            background-color: var(--white);
+
+        }
+
+        .nav {
+            max-height: 0;
+            transition: max-height .5s ease-out;
+        }
+
+        .hamb {
+            cursor: pointer;
+            float: right;
+            padding: 40px 20px;
+        }
+
+        .hamb-line {
+            background: var(--white);
+            display: block;
+            height: 2px;
+            position: relative;
+            width: 24px;
+        }
+
+        .hamb-line::before,
+        .hamb-line::after {
+            background: var(--white);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+
+        .hamb-line::before {
+            top: 5px;
+        }
+
+        .hamb-line::after {
+            top: -5px;
+        }
+
+        .side-menu {
+            display: none;
+        }
+
+        .side-menu:checked~nav {
+            max-height: 100%;
+        }
+
+        .side-menu:checked~.hamb .hamb-line {
+            background: transparent;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::before {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::after {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        @media screen and (min-height:741px) {}
+
+        @media (min-width: 768px) {
+            .nav {
+                max-height: none;
+                top: 0;
+                position: relative;
+                float: right;
+                width: fit-content;
+                background-color: transparent;
+            }
+
+            .menu li {
+                float: left;
+            }
+
+            .menu a:hover {
+                background-color: transparent;
+                color: var(--gray);
+
+
+            }
+
+            .hamb {
+                display: none;
+            }
+
+        }
+
+
+        .main {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            /* z-index: 9999; */
+        }
+
+        .background_color {
+            /* /setting the background color using the div class after the nav end/ */
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            align-content: center;
+        }
+
+
+
+        .line {
+            color: rgb(255 255 255);
+            font-weight: bold;
+            top: 34px;
+            position: fixed;
+            margin-left: 619px;
+        }
+
+        /* qrscanner */
+        #reader {
+            width: 50vw !important;
+            height: 50vh !important;
+            display: inline-block;
+            margin-top: 5vh;
+            /* background-color: wheat; */
+        }
+
+        img {
+            width: 10vw !important;
+            margin-top: 5vh !important;
+        }
+
+        #reader__dashboard {
+            height: 10vh !important;
+        }
+
+        #reader__header_message {
+            font-size: 2vh !important;
+            margin-bottom: 4vh !important;
+        }
+       
+
+        #html5-qrcode-button-camera-permission {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            font-size: 1.5vh !important;
+            margin-top: 3vh !important;
+        }
+
+        #html5-qrcode-button-camera-start {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            margin-top: 3vh !important;
+            font-size: 2vh !important;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            font-size: 4vh !important;
+        }
+
+        #html5-qrcode-button-file-selection {
+            width: 10vw !important;
+            height: 3.8vh !important;
+            border-radius: 0vw;
+            margin-top: 3vh !important;
+            font-size: 1.5vh !important;
+        }
+  #qr-shaded-region{
+    border-width: 13vh 10vw !important;
+  }
+        #html5-qrcode-button-camera-stop {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            margin-top: 3vh !important;
+            font-size: 2vh !important;
+        }
+        #reader__scan_region img {
+                width: 10vw !important;
+            }
+
+
+        /* #reader__header_message{
+            display: none !important;
+        } */
+        div {
+            font-size: 0.8vw;
+
+        }
+        .header{
+            z-index:9;
+        }
+
+        @media screen and (max-width:700px) {
+            .header {
+                height: 100px;
+                /* z-index: -99; */
+                /* display: none; */
+            }
+
+
+
+            .logo {
+                font-size: 40px;
+                margin-left: 15px;
+                margin-top: 20px;
+            }
+
+            .menu a {
+                font-size: 25px;
+                padding-top: 40px;
+                padding-left: 20px;
+                ;
+
+            }
+
+            img {
+                width: 5vw !important;
+                height: 10vh !important;
+                margin-right: 1vw !important;
+                /* display: none !important; */
+            }
+            #qr-shaded-region{
+    border-width: 13vh 10vw !important;
+  }
+       
+
+            /* .main {
+                /* display: none !important; */
+            /* } */ 
+
+            #html5-qrcode-button-camera-permission {
+                width: 28vw !important;
+                height: 4vh !important;
+                border-radius: 1vw;
+                font-size: 1.5vh !important;
+                margin-top: 3vh !important;
+            }
+
+            #reader {
+                width: 78vw !important;
+                height: 73vh !important;
+                display: inline-block;
+                margin-top: 7vh;
+                /* background-color: wheat; */
+            }
+
+            #reader__scan_region {
+                height: 30vh !important;
+            }
+
+            #reader__scan_region img {
+                width: 27vw !important;
+            }
+
+            /* #reader img{
+                display: none !important;
+            } */
+
+            #html5-qrcode-button-camera-stop {
+                width: 45vw !important;
+                height: 6vh !important;
+                border-radius: 2vh;
+                margin-top: 18vh !important;
+                font-size: 2.5vh !important;
+            }
+
+            #html5-qrcode-button-camera-permission {
+                width: 53vw !important;
+                height: 7vh !important;
+                border-radius: 4vw;
+                font-size: 2.5vh !important;
+                margin-top: -7vh !important;
+            }
+
+            #html5-qrcode-anchor-scan-type-change {
+                font-size: 3vh !important;
+                margin-top: 1vh !important;
+            }
+            #html5-qrcode-button-camera-start {
+            width: 53vw !important;
+            height: 7vh !important;
+            border-radius: 5vw;
+            margin-top: 3vh !important;
+            font-size: 2.5vh !important;
+        }
+        #html5-qrcode-button-file-selection {
+    width: 42vw !important;
+    height: 7.8vh !important;
+    border-radius: 0vw;
+    margin-top: 1vh !important;
+    font-size: 1.5vh !important;
+}
+div {
+    font-size: 3vw !important;
+}
+#qr-canvas-visible{
+    width:40vw !important;
+    height: 33vh !important;
+}
+
+
+        }
+    </style>
+    </form>
+    </div>
+    </div>
+    </form>
+
+
+        <% if(locals.success) { %>
+            <script>
+                  let success = '<%= success %>';
+              alert(success);
+            </script>
+            <% } %>
+
+            <% if(locals.already_present) { %>
+                <script>
+                      let already_present = '<%= already_present %>';
+                  alert(already_present);
+                </script>
+                <% } %>
+    
+          <% if(locals.msg) { %>
+            <script>
+                  let msg = '<%= msg %>';
+              alert(msg);
+            </script>
+            <% } %>
+    
+   
+            <script>
+                const scanner = new Html5QrcodeScanner('reader', {
+                    qrbox: {
+                        width: 1000,
+                        height: 1000,
+                    },
+                })
+        
+                scanner.render(success, error);
+        
+                function success(result) {
+                    var form = document.getElementById("form");
+                    document.getElementById("t1").value = result.toString();
+                    alert(result);
+                    form.submit();
+                }
+        
+                function error() {
+                    // alert("Scanned Unsucessfull!!")
+                }  
+            </script>
+    
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body id="my">
+    <form id="form" name="form" action="/scanner" method="post">
+        <header class="header">
+            Logo
+            <a href="#" class="logo">Student</a>
+            Hamburger icon
+            <input class="side-menu" type="checkbox" id="side-menu" />
+            <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+             Menu
+            <nav class="nav">
+                <ul class="menu">
+                    <li id="one" onclick="chnage(this)"><a href="/student_menu"><b id="one" class="b">View
+                                Attendance</b></a></li>
+                    <li id="two" onclick="chnage(this)"><a href="index.html"><b class="b">Scan QR</b></a> </li>
+                    <li id="three" onclick="chnage(this)""><a href="/logout_student"><b class="b" id="three">Logout</b></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="background_color">
+            <div class="main">
+
+                <div style="width: 500px" id="reader"></div>
+                <script src="https://unpkg.com/html5-qrcode@2.3.4/html5-qrcode.min.js"></script>
+
+                <div id="reader" style="width: 600px"></div>
+
+                <form action="/scan_qr" method="post" id="form">
+                    <input type="text" name="data" id="t1" hidden="true">
+                </form>
+            </div>
+        </div>
+    </form>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+        /* import font */
+
+        #my {
+            zoom: 100%;
+        }
+
+        :root {
+            --white: #f9f9f9;
+            --black: #36383F;
+            --gray: #85888C;
+        }
+
+        /* variables*/
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--white);
+            font-family: "Poppins", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .header {
+            background-color: var(--black);
+            box-shadow: 1px 1px 5px 0px var(--gray);
+            position: sticky;
+            top: 0;
+            height: 200px;
+            ;
+            border: 2px solid white;
+            width: 100%;
+        }
+
+        /* Logo */
+        .logo {
+            display: inline-block;
+            color: var(--white);
+            font-size: 100px;
+            margin-left: 80px;
+            /* text-align: center; */
+            margin-top: 25px;
+        }
+
+        .nav {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: var(--black);
+            overflow: hidden;
+
+        }
+
+        .menu a {
+
+            display: block;
+            padding-top: 80px;
+            ;
+            padding-right: 320px;
+            font-size: 60px;
+            color: var(--white);
+        }
+
+        .menu a:hover {
+            background-color: var(--white);
+
+        }
+
+        .nav {
+            max-height: 0;
+            transition: max-height .5s ease-out;
+        }
+
+        .hamb {
+            cursor: pointer;
+            float: right;
+            padding: 40px 20px;
+        }
+
+        .hamb-line {
+            background: var(--white);
+            display: block;
+            height: 2px;
+            position: relative;
+            width: 24px;
+        }
+
+        .hamb-line::before,
+        .hamb-line::after {
+            background: var(--white);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+
+        .hamb-line::before {
+            top: 5px;
+        }
+
+        .hamb-line::after {
+            top: -5px;
+        }
+
+        .side-menu {
+            display: none;
+        }
+
+        .side-menu:checked~nav {
+            max-height: 100%;
+        }
+
+        .side-menu:checked~.hamb .hamb-line {
+            background: transparent;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::before {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::after {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        @media screen and (min-height:741px) {}
+
+        @media (min-width: 768px) {
+            .nav {
+                max-height: none;
+                top: 0;
+                position: relative;
+                float: right;
+                width: fit-content;
+                background-color: transparent;
+            }
+
+            .menu li {
+                float: left;
+            }
+
+            .menu a:hover {
+                background-color: transparent;
+                color: var(--gray);
+
+
+            }
+
+            .hamb {
+                display: none;
+            }
+
+        }
+
+
+        .main {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .background_color {
+            /* /setting the background color using the div class after the nav end/ */
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            align-content: center;
+        }
+
+
+
+        .line {
+            color: rgb(255 255 255);
+            font-weight: bold;
+            top: 34px;
+            position: fixed;
+            margin-left: 619px;
+        }
+
+        /* qrscanner */
+        #reader {
+            width: 50vw !important;
+            height: 50vh !important;
+            display: inline-block;
+            margin-top: 5vh;
+            /* background-color: wheat; */
+        }
+
+        img {
+            width: 10vw !important;
+            margin-top: 5vh !important;
+        }
+
+        #reader__dashboard {
+            height: 10vh !important;
+        }
+
+        #reader__header_message {
+            font-size: 2vh !important;
+            margin-bottom: 4vh !important;
+        }
+       
+
+        #html5-qrcode-button-camera-permission {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            font-size: 1.5vh !important;
+            margin-top: 3vh !important;
+        }
+
+        #html5-qrcode-button-camera-start {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            margin-top: 3vh !important;
+            font-size: 2vh !important;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            font-size: 4vh !important;
+        }
+
+        #html5-qrcode-button-file-selection {
+            width: 10vw !important;
+            height: 3.8vh !important;
+            border-radius: 0vw;
+            margin-top: 3vh !important;
+            font-size: 1.5vh !important;
+        }
+
+        #html5-qrcode-button-camera-stop {
+            width: 10vw !important;
+            height: 4vh !important;
+            border-radius: 1vw;
+            margin-top: 3vh !important;
+            font-size: 2vh !important;
+        }
+        #reader__scan_region img {
+                width: 10vw !important;
+            }
+
+
+        /* #reader__header_message{
+            display: none !important;
+        } */
+        div {
+            font-size: 0.8vw;
+
+        }
+
+        @media screen and (max-width:700px) {
+            .header {
+                height: 100px;
+                /* display: none; */
+            }
+
+
+
+            .logo {
+                font-size: 40px;
+                margin-left: 15px;
+                margin-top: 20px;
+            }
+
+            .menu a {
+                font-size: 25px;
+                padding-top: 40px;
+                padding-left: 20px;
+                ;
+
+            }
+
+            img {
+                width: 5vw !important;
+                height: 10vh !important;
+                margin-right: 1vw !important;
+                /* display: none !important; */
+            }
+
+            /* .main {
+                /* display: none !important; */
+            /* } */ 
+
+            #html5-qrcode-button-camera-permission {
+                width: 28vw !important;
+                height: 4vh !important;
+                border-radius: 1vw;
+                font-size: 1.5vh !important;
+                margin-top: 3vh !important;
+            }
+
+            #reader {
+                width: 78vw !important;
+                height: 73vh !important;
+                display: inline-block;
+                margin-top: 7vh;
+                /* background-color: wheat; */
+            }
+
+            #reader__scan_region {
+                height: 30vh !important;
+            }
+
+            #reader__scan_region img {
+                width: 27vw !important;
+            }
+
+            /* #reader img{
+                display: none !important;
+            } */
+
+            #html5-qrcode-button-camera-stop {
+                width: 45vw !important;
+                height: 6vh !important;
+                border-radius: 2vh;
+                margin-top: 18vh !important;
+                font-size: 2.5vh !important;
+            }
+
+            #html5-qrcode-button-camera-permission {
+                width: 53vw !important;
+                height: 7vh !important;
+                border-radius: 4vw;
+                font-size: 2.5vh !important;
+                margin-top: -7vh !important;
+            }
+
+            #html5-qrcode-anchor-scan-type-change {
+                font-size: 3vh !important;
+                margin-top: 1vh !important;
+            }
+            #html5-qrcode-button-camera-start {
+            width: 53vw !important;
+            height: 7vh !important;
+            border-radius: 5vw;
+            margin-top: 3vh !important;
+            font-size: 2.5vh !important;
+        }
+        #html5-qrcode-button-file-selection {
+    width: 42vw !important;
+    height: 7.8vh !important;
+    border-radius: 0vw;
+    margin-top: 1vh !important;
+    font-size: 1.5vh !important;
+}
+div {
+    font-size: 3vw !important;
+}
+#qr-canvas-visible{
+    width:40vw !important;
+    height: 33vh !important;
+}
+
+
+        }
+    </style>
+    </form>
+    </div>
+    </div>
+    
+     <% if(locals.success) { %>
+        <script>
+              let err = '<%=success %>';
+          alert(err);
+        </script>
+        <% } %> 
+
+    <% if(locals.msg) { %>
+        <script>
+              let error = '<%= msg %>';
+          alert(error);
+        </script>
+        <% } %> 
+
+            
+            <% if(locals.msg) { %>
+                <script>
+                      let error = '<%= msg %>';
+                  alert(error);
+                </script>
+                <% } %> 
+
+    <script>
+        const scanner = new Html5QrcodeScanner('reader', {
+            qrbox: {
+                width: 1000,
+                height: 1000,
+            },
+        })
+
+        scanner.render(success, error);
+
+        function success(result) {
+            var form = document.getElementById("form");
+            document.getElementById("t1").value = result.toString();
+            alert(result);
+            form.submit();
+        }
+
+        function error() {
+            // alert("Scanned Unsucessfull!!")
+        }  
+    </script>
+</body>
+</head>
+
+</html>  -->

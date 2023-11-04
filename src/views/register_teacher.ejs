@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Teacher Registration Form </title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=1000">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+   </head>
+<body>
+  <div class="modal">
+  <div class="container">
+    <div class="title">Teacher Registration</div>
+    <div class="content">
+      <form action="/register_teacher" method="post">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details"></span> 
+            <input type="text" placeholder="name" name ="teacher_name" required>
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="Create your ID" name="teacher_id" required oninput="this.value=value.replace(/[^0-9]/g,'');">
+          </div>
+           <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="phone number " name="teacher_no" id="phonenumber" required oninput="this.value=value.replace(/[^0-9]/g,'');">
+          </div>
+ <div class="input-box">
+            <span class="details"></span>
+            <input type="email" placeholder="e-mail" name="teacher_stud" required>
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="password"  name="teacher_password" required>
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" id="confirm password" placeholder="confirm password" required>
+          </div>
+        </div>
+        <div class="gender-details">
+          <input type="radio" name="gender" id="dot-1">
+          <input type="radio" name="gender" id="dot-2">
+          <input type="radio" name="gender" id="dot-3">
+          
+          <div class="category">
+            <label for="dot-1">
+          
+          </div>
+        </div>
+        <div class="button">
+          <input type="submit" value="Register" onclick="phonevalidate()">
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+
+<!--MY SCRIPT-->
+  <script>
+    function phonevalidate()     
+    {
+      phonenumber=document.getElementById("phonenumber").value;
+      if(document.getElementById("phonenumber").value=="")
+      {
+        alert("please enter the details")
+      }
+      if(phonenumber.length<10 || phonenumber.length>10)
+      {
+        alert("please enter valid phone number")
+        
+      }     
+  }
+  </script>
+</body>
+</html>
+
+
+<!--STYLING -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #50a7e1, #d433d2);
+
+}
+.container{
+  max-width: 800px;
+  /* width: 80%; */
+  height: 410px;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 30px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  position: relative;
+  align-items: center;
+  align-content: center;
+  
+}
+.modal{
+  zoom:355%;
+}
+.container .title{
+  font-size: 25px;
+  font-weight: 600;
+  /* position:relative; */
+  padding: 0px 230px;
+}
+/* .container .title::before{ line below the student registration text
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+} */
+
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+
+.myselect{     /*DEPARTMENT DROP DOWN */
+  width: 350px;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+  /* border: radius 0px; */
+}
+
+.myselect2{     /*YEAR DROP DOWN */
+  width: 350px;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+ 
+}
+
+.myselect3{   
+  width: 350px;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+ 
+}
+
+
+form .input-box span.details
+{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #9b59b6;
+   border-color: #d9d9d9;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+
+ form .button{
+  height: 50px;
+ 
+ }
+
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff; 
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   /* margin-top: 8vh; */
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+ 
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+ @media(max-width: 584px){
+ .container{
+  width: 82vw;
+    height: 62vh;
+    border-radius: 42px;
+}
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  form .category{
+    width: 100%;
+  }
+  .content form .user-details{
+    max-height: 300px;
+   
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+  form .button input{
+    margin-top: 8vh !important;
+  }
+}
+
+ @media (max-width:380px){
+   .container{
+    height: 88vh !important;
+  }
+ }
+  @media(max-width: 500px){
+  .container{
+    width: 82vw;
+    height: 69vh;
+    border-radius: 42px;
+  }
+  .container .title{
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+  }
+  .modal{
+    zoom:0%;
+  }
+ 
+}
+
+ 
+</style>

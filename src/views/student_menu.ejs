@@ -1,0 +1,665 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1> Student Menu</h1>
+   <a href="/login_display">Login</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+<body id="my">
+  <form id="forme" action="/student_menu" method="post">
+    <!-- <nav>
+      <div class="logo">
+        <p>Teacher</p>
+      </div>
+
+      <ul>
+         <li><a href="#">Teacher</a></li> 
+        <li><a href="qr_menu/index.html">Create QR</a></li>
+        <li><a href="index.html">Classroom</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </nav> -->
+    <header class="header">
+      <!-- Logo -->
+      <a href="#" class="logo">Student</a>
+      <!-- Hamburger icon -->
+      <input class="side-menu" type="checkbox" id="side-menu" />
+      <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+      <!-- Menu -->
+      <nav class="nav">
+        <ul class="menu" >
+          <li id="one" onclick="chnage(this)"><a href="/student_menu"><b id="one" class="b">View Attendance</b></a></li>
+          <li id="two" onclick="chnage(this)"><a href="/scanner"><b class="b">Scan QR</b></a> </li>
+          <li id="three" onclick="chnage(this)""><a href="/logout_student"><b class="b" id="three">Logout</b></a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="background_color">
+      <div class="main">
+
+        <div class="modalForm">
+          <div class="title">View Attendance</div>
+          <div class="content">
+            <form action="#">
+              <div class="user-details">
+                <div class="input-box">
+                  <span class="details"></span>
+                  <!-- <input type="text" placeholder="Roll range 1101-1161" required
+                    oninput="this.value=value.replace(/[^0-9,-]/gi,'');" id="roll"> -->
+                </div>
+
+              </div>
+              <div>
+                <select class="myselect2" class="font_s" required id="select1" name="select1" onchange="semester_changing()">
+                  <option disabled selected class="font_s">Select your year</option>
+                  <option value="" class="font_s"></option>
+                  <option value="FY" class="font_s">FY</option>
+                  <option value="SY" class="font_s">SY</option>
+                  <option value="TY" class="font_s">TY</option>
+                </select>
+              </div>
+              <div>
+                <select class="myselect3" required id="select2" name="select2">
+                  <option disabled selected class="font_s"> Select your semester</option>
+                  <option value="" class="font_s"></option>
+                </select>
+              </div>
+              <div>
+                <select class="myselect" required name="discipline">
+                  <!-- <optgroup label="Select your department"></optgroup> -->
+                  <option disabled selected class="font_s">Select your discipline</option>
+                  <option class="font_s" value="CO1">CO1</option>
+                  <option class="font_s" value="CO2">CO2</option>
+                </select>
+              </div>
+              <div>
+                <select class="myselect4" placeholder="select your subject" required id="select4" name="subject">
+                   <option disabled selected>Select your subject</option>
+                  <option value="" class="font_s"></option>
+                </select>
+              </div>
+              <div class="button">
+                <input type="submit" value="View Attendance" onclick="">
+              </div>
+            </form>
+          </div>
+
+        </div>
+  </form>
+
+    <!-- if student or teacher dates or not present then it will throw error -->
+    <% if(locals.error) { %>
+      <script>
+            let error = '<%= error %>';
+        alert(error);
+      </script>
+      <% } %>
+
+     
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+    /* import font */
+
+     #my{
+      zoom:100%;
+     }
+    :root {
+      --white: #f9f9f9;
+      --black: #36383F;
+      --gray: #85888C;
+    }
+    /* variables*/
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--white);
+      font-family: "Poppins", sans-serif;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .header {
+      background-color: var(--black);
+      box-shadow: 1px 1px 5px 0px var(--gray);
+      position: sticky;
+      top: 0;
+      height: 200px;;
+      border: 2px solid white;
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+      display: inline-block;
+      color: var(--white);
+      font-size: 100px;
+      margin-left: 80px;
+      /* text-align: center; */
+      margin-top: 25px;
+    }
+
+    .nav {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background-color: var(--black);
+      overflow: hidden;
+
+    }
+
+    .menu a {
+
+      display: block;
+      padding-top: 80px;
+      ;
+      padding-right: 320px;
+      font-size: 60px;
+      color: var(--white);
+    }
+
+    .menu a:hover {
+      background-color: var(--white);
+      
+    }
+
+    .nav {
+      max-height: 0;
+      transition: max-height .5s ease-out;
+    }
+
+    .hamb {
+      cursor: pointer;
+      float: right;
+      padding: 40px 20px;
+    }
+
+    .hamb-line {
+      background: var(--white);
+      display: block;
+      height: 2px;
+      position: relative;
+      width: 24px;
+    }
+
+    .hamb-line::before,
+    .hamb-line::after {
+      background: var(--white);
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      transition: all .2s ease-out;
+      width: 100%;
+    }
+
+    .hamb-line::before {
+      top: 5px;
+    }
+
+    .hamb-line::after {
+      top: -5px;
+    }
+
+    .side-menu {
+      display: none;
+    }
+
+    .side-menu:checked~nav {
+      max-height: 100%;
+    }
+
+    .side-menu:checked~.hamb .hamb-line {
+      background: transparent;
+    }
+
+    .side-menu:checked~.hamb .hamb-line::before {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    .side-menu:checked~.hamb .hamb-line::after {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    @media screen and (min-height:741px){
+     div .modalForm{
+        height: 60vh !important;
+        
+      }
+      
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        max-height: none;
+        top: 0;
+        position: relative;
+        float: right;
+        width: fit-content;
+        background-color: transparent;
+      }
+     
+      .menu li {
+        float: left;
+      }
+
+      .menu a:hover {
+        background-color: transparent;
+        color: var(--gray);
+       
+
+      }
+
+      .hamb {
+        display: none;
+      }
+
+      .modalForm {
+        width: 80vw;
+        height: 74vh;
+        background-color: #ffffff;
+        display: inline-block;
+        text-align: center;
+        margin-top: 7vh;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    @media (max-height:380px){
+      .myselect2 {
+        height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+}
+.myselect3 {
+ 
+  height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+   
+}
+.myselect {
+  height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+}
+.myselect4 {
+  height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+}
+form .button input {
+  height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+    }
+    }
+
+    @media screen and (max-width:700px) {
+      .header {
+        height: 90px;
+        /* display: none; */
+      }
+
+      .user-details .input-box input{
+      margin-top: 1vh !important;
+      margin-bottom: 0px !important;     
+    }
+      .myselect2 {
+    width: 60vw !important;
+    height: 40px !important;
+    padding-left: 15px !important;
+    margin-top: 2vh !important;
+    font-size: 20px !important;
+    /* margin-left: 170px; */
+}
+.myselect3 {
+  width: 60vw !important;
+    height: 40px !important;
+    padding-left: 15px !important;
+   margin-top: 2vh !important;
+    font-size: 20px !important;
+}
+.myselect {
+  width: 60vw !important;
+    height: 40px !important;
+    padding-left: 15px !important;
+    margin-top: 2vh !important;   
+    font-size: 20px !important;
+}
+.myselect4 {
+  width: 60vw !important;
+    height: 40px !important;
+    padding-left: 15px !important;
+    margin-top: 2vh !important;
+    font-size: 20px !important;
+}
+form .button input {
+      height: 60px !important;
+      width: 60vw !important;
+     margin-top: 3vh !important;
+      font-size: 20px !important;
+     
+    }
+      .logo {
+        font-size: 40px;
+        margin-left: 15px;
+        margin-top: 20px;
+      }
+
+      .menu a {
+        font-size: 25px;
+        padding-top: 40px;
+        padding-left: 20px;
+        ;
+
+      }
+
+      .user-details .input-box input {
+        height: 40px !important;
+        width: 60vw !important;
+
+        font-size: 20px !important;
+
+        padding-left: 15px !important;
+
+
+      }
+
+      .modalForm {
+        width: 79vw !important;
+        height: 78vh !important;
+        background-color: #ffffff;
+        display: inline-block;
+        text-align: center;
+        border-radius: 40px !important;
+        margin-top: 7vh !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      }
+
+      .title {
+        font-size: 40px !important;
+        padding: 0% !important;
+        font-style: normal !important;
+      }
+    }
+
+    .main {
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+
+    .background_color {
+      /*setting the background color using the div class after the nav end*/
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      height: 100vh;
+      width: 100vw;
+
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+
+    .modalForm {
+
+      width: 40vw;
+      background-color: #ffffff;
+      /* top: 40vh; */
+      /* position: fixed; */
+      display: inline-block;
+      text-align: center;
+      /* position: fixed; */
+      height: 1700px;
+      /* margin-left: 350px; */
+      margin-top: 15vh;
+      border-radius: 107px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+
+    }
+
+    .title {
+      font-size: 120px;
+      font-weight: 600;
+      display: inline-block;
+      padding: 16px 150px;
+      /* padding-left: 266px; */
+    }
+
+    .content form .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+      justify-content: space-between;
+      margin: 10px 0 12px 0;
+    }
+
+    form .user-details .input-box {
+      /* margin-bottom: 15px; */
+      display: inline-block;
+      margin-top: 40px;
+      /* width: calc(100% / 2 - 20px); */
+    }
+
+    form .input-box span.details {
+      /* display: block; */
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .user-details .input-box input {
+      height: 150px;
+      width: 25vw;
+
+      outline: none;
+      font-size: 47px;
+      border-radius: 37px;
+      padding-left: 15px;
+      text-align: center;
+      margin-top: 80px;
+      display: inline-block;
+      /* margin-left:100px; */
+      border: 2px solid black;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+      /* margin: 11px; */
+      /* margin-left: 140px; */
+    }
+
+    .user-details .input-box input:focus,
+    .user-details .input-box input:valid {
+      border-color: #9b59b6;
+    }
+
+    .myselect3 {
+      width: 25vw;
+      height: 150px;
+      border-color: #ccc;
+      align-content: center;
+      font-family: 'Domine', serif;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 37px;
+      margin-top: 40px;
+      display: inline-block;
+      border: 2px solid black;
+      /* margin-left: 170px; */
+      font-size: 47px;
+    }
+
+    .myselect2
+
+    /* YEAR dropdown*/
+      {
+      width: 25vw;
+      height: 150px;
+      border-color: #ccc;
+
+      align-content: center;
+      font-family: 'Domine', serif;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 37px;
+      margin-top: 40px;
+      display: inline-block;
+      border: 2px solid black;
+      font-size: 47px;
+      /* margin-left: 170px; */
+    }
+
+
+    .myselect {
+      /*DEPARTMENT DROP DOWN */
+      width: 25vw;
+      height: 150px;
+      border-color: #ccc;
+      align-content: center;
+      font-family: 'Domine', serif;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 37px;
+      border: 2px solid black;
+      font-size: 47px;
+      display: inline-block;
+      /* margin: 19px; */
+      margin-top: 40px;
+      /* margin-left: 170px; */
+      /* border: radius 0px; */
+    }
+
+    .myselect4 {
+      width: 25vw;
+      height: 150px;
+      border-color: black;
+      align-content: center;
+      font-family: 'Domine', serif;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 37px;
+      margin-top: 40px;
+      display: inline-block;
+      border: 2px solid black;
+      /* margin-left: 170px; */
+      font-size: 47px;
+    }
+
+
+
+    form .button input {
+      height: 150px;
+      width: 30vw;
+      border-radius: 45px;
+      border: none;
+      color: #fff;
+      font-size: 68px;
+      /* position: fixed; */
+      font-weight: 500;
+      display: inline-block;
+      /* letter-spacing: 1px; */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      margin-top: 130px;
+      /* top: 516px; */
+    }
+
+    .line {
+      color: rgb(255 255 255);
+      font-weight: bold;
+      top: 34px;
+      position: fixed;
+      margin-left: 619px;
+    }
+  </style>
+  </form>
+  </div>
+  </div>
+  </form>
+  <script>
+    function semester_changing()
+{
+    if(select1.value=="FY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option></option>"+"<option value=' '></option"+"<option value='1'> 1 </option> <br>"+"<option value='2'> 2 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+
+    if(select1.value=="SY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option></option>"+"<option value=' '></option"+"<option value='3'> 3 </option> <br>"+"<option value='4'> 4 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+
+    if(select1.value=="TY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option></option>"+"<option value=' '></option"+"<option  value='5'> 5 </option> <br>"+"<option value='6'> 6 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+
+
+    // FIRST YEAR SUBJECT SELECTION 
+    if(select1.value=="FY")
+    {
+        temp= "<option disabled selected>Select your subject</option>"+"<option></option>"+
+        "<option disabled>first semester subjects</option>"+
+        "<option value=' '></option"+"<option> ENG </option> <br>"+
+        "<option> BSC(PHY) </option> <br>"+"<option> BSC(CHEM) </option> <br>"
+        +"<option> BMS </option> <br>"+"<option> ICT </option> <br>"+"<option> EGE </option> <br>"
+        +"<option> WPC </option> <br>"+"<option>  </option> <br>"+
+        "<option disabled> second semester subjects </option> <br>"+
+        "<option> EEC </option> <br>"+"<option> AMI </option> <br>"+
+        "<option> BEC </option> <br>"+"<option> PIC </option> <br>"+
+        "<option> BCC </option> <br>"+"<option> CPH </option> <br>"+"<option> WPD </option> <br>";
+                        document.getElementById("select4").innerHTML=temp;
+    }
+
+
+    //SECOND YEAR SUBJECT SELECTION 
+    if(select1.value=="SY")
+    {
+        temp= "<option disabled selected>Select your subject</option>"+"<option></option>"+"<option disabled>third semester subjects</option>"+"<option value=' '></option"+"<option> OOP </option> <br>"+"<option> DSU </option> <br>"+"<option> CGR </option> <br>"+"<option> DMS </option> <br>"+"<option> DTE </option> <br>"+"<option>  </option> <br>"+"<option disabled> fourth semester subjects </option> <br>"+"<option> JPR </option> <br>"+"<option> SEN </option> <br>"+"<option> DCC </option> <br>"+"<option> MIC </option> <br>"+"<option> GAD </option> <br>";
+                        document.getElementById("select4").innerHTML=temp;
+    }
+
+    //THIRD YEAR SUBJECT SELECTION 
+    if(select1.value=="TY")
+    {
+        temp= "<option disabled selected>Select your subject</option>"+"<option></option>"+"<option disabled>fifth semester subjects</option>"+"<option value=' '></option"+"<option> EST </option> <br>"+"<option> OSY </option> <br>"+"<option> AJP </option> <br>"+"<option> STE </option> <br>"+"<option> CSS </option> <br>"+"<option>  </option> <br>"+"<option disabled> sixth semester subjects </option> <br>"+"<option> MGT </option> <br>"+"<option> PWP </option> <br>"+"<option> MAD </option> <br>"+"<option> ETI </option> <br>"+"<option> WBP </option> <br>"+"<option> EDE </option> <br>";
+                        document.getElementById("select4").innerHTML=temp;
+    }
+}
+  </script>
+</body>
+</head>
+
+</html>

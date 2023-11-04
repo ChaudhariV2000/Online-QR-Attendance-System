@@ -1,0 +1,497 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <% if(locals.error_msg) { %>
+    <script>
+          let error_msg = '<%= error_msg %>';
+      alert(error_msg);
+    </script>
+    <% } %>
+<body id="my">
+  <form id="forme" action="" method="post">
+    <!-- <nav>
+      <div class="logo">
+        <p>Teacher</p>
+      </div>
+
+      <ul>
+         <li><a href="#">Teacher</a></li> 
+        <li><a href="qr_menu/index.html">Create QR</a></li>
+        <li><a href="index.html">Classroom</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </nav> -->
+    <header class="header">
+      <a href="#" class="logo">Teacher</a>
+      <input class="side-menu" type="checkbox" id="side-menu" />
+      <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+      <nav class="nav">
+        <ul class="menu" >
+          <li id="one" onclick="chnage(this)"><a href="/teacher_student_details"><b id="one" class="b">Students Details</b></a></li>
+          <li id="two" onclick="chnage(this)"><a href="/teacher_menu"><b class="b">Create QR</b></a> </li>
+          <li id="three" onclick="chnage(this)""><a href="/classroom_attendance"><b class="b" id="three">Classroom</b></a></li>
+          <li id="four" onclick="chnage(this)""><a href="/logout_teacher"><b class="b" id="three">Logout</b></a></li>
+        
+        </ul>
+      </nav>
+    </header>
+    <div class="background_color">
+      <div class="main">
+        <!-- <div class="table1"> -->
+          <h1 id="dept"><%= dept %></h1>
+<%- stud_data[0][subject][1]%>
+          <table border="1" colspan class="table1">
+            <tr>
+                <td><b>
+                   Roll_No
+                </b>
+                </td>
+                <% for(let i = 0 ; i < dates.length ; i++) { %>
+                    <td class="col">
+                      <b>
+                        <%= dates[i] %>
+                      </b>
+                    </td>
+                <%}%>
+            </tr>
+            <% for (let d = 0 ; d < stud_data.length ; d++) {%>
+                <tr>
+                    <td>
+                        <%- stud_data[d].roll_no %>
+                    </td>
+                   <% for (let a = 0 ; a < dates.length ; a++ ) {%>
+                      <% if(stud_data[d][subject][a]==dates[a]) {%>
+                            <td class="col">
+                                P
+                            </td>
+                       <% } else { %>
+                            <td class="col">
+                              <b ><p style="color:red">A</p></b>
+                            </td>
+                      <%  } %>
+                    <% } %>
+                </tr> 
+                <%} %>
+            </table>
+        
+        
+    </div>
+        </div>
+  </form>
+
+    <!-- if student or teacher dates or not present then it will throw error -->
+    <% if(locals.error) { %>
+      <script>
+            let error = '<%= error %>';
+        alert(error);
+      </script>
+      <% } %>
+
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+    /* import font */
+
+     #my{
+      zoom:100%;
+     }
+    :root {
+      --white: #f9f9f9;
+      --black: #36383F;
+      --gray: #85888C;
+    }
+    /* variables*/
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      
+    }
+
+    body {
+      background-color: var(--white);
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .header {
+      background-color: var(--black);
+      box-shadow: 1px 1px 5px 0px var(--gray);
+      position: sticky;
+      top: 0;
+      height: 200px;;
+      border: 2px solid white;
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+      display: inline-block;
+      color: var(--white);
+      font-size: 100px;
+      margin-left: 80px;
+      /* text-align: center; */
+      margin-top: 25px;
+    }
+
+    .nav {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background-color: var(--black);
+      overflow: hidden;
+
+    }
+
+    .menu a {
+
+      display: block;
+      padding-top: 80px;
+      ;
+      padding-right: 320px;
+      font-size: 60px;
+      color: var(--white);
+    }
+
+    .menu a:hover {
+      background-color: var(--white);
+      
+    }
+
+    .nav {
+      max-height: 0;
+      transition: max-height .5s ease-out;
+    }
+
+    .hamb {
+      cursor: pointer;
+      float: right;
+      padding: 40px 20px;
+    }
+
+    .hamb-line {
+      background: var(--white);
+      display: block;
+      height: 2px;
+      position: relative;
+      width: 24px;
+    }
+
+    .hamb-line::before,
+    .hamb-line::after {
+      background: var(--white);
+      content: '';
+      display: block;
+      height: 100%;
+      position: absolute;
+      transition: all .2s ease-out;
+      width: 100%;
+    }
+
+    .hamb-line::before {
+      top: 5px;
+    }
+
+    .hamb-line::after {
+      top: -5px;
+    }
+
+    .side-menu {
+      display: none;
+    }
+
+    .side-menu:checked~nav {
+      max-height: 100%;
+    }
+
+    .side-menu:checked~.hamb .hamb-line {
+      background: transparent;
+    }
+
+    .side-menu:checked~.hamb .hamb-line::before {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
+    .side-menu:checked~.hamb .hamb-line::after {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    .col{
+          padding-left:0.5vw;
+        padding-right:0.5vw;
+        text-align:center;
+    }
+    .table1{
+        width:auto;
+        height:auto;
+        max-width:80vw;
+        max-height: 80vh;
+        display:inline-block;
+        background:whitesmoke;
+        font-size:1.0vw;
+        padding:10px;
+        margin-top:5vh;
+        margin-left:5vh;
+        overflow-x:auto;
+overflow-y:auto;
+    }
+    td{
+        padding:50px;
+        padding-left:3vw;
+        padding-right:3vw;
+    }
+    h1{
+      font-size: 1.5vw;
+      background-color: aliceblue;
+       padding-left: 50px;
+    }
+    @media screen and (min-height:741px){
+     div .modalForm{
+        height: 60vh !important;
+        
+      }
+      
+    }
+
+    @media (min-width: 768px) {
+      .nav {
+        max-height: none;
+        top: 0;
+        position: relative;
+        float: right;
+        width: fit-content;
+        background-color: transparent;
+      }
+     
+      .menu li {
+        float: left;
+      }
+
+      .menu a:hover {
+        background-color: transparent;
+        color: var(--gray);
+       
+
+      }
+
+      .hamb {
+        display: none;
+      }
+
+     
+    }
+
+    @media (max-height:380px){
+     
+form .button input {
+  height: 30px !important;
+    padding-left: 15px !important;
+   margin-top: 10px !important;
+   
+    }
+    }
+
+    @media screen and (max-width:700px) {
+      .header {
+        height: 90px;
+        /* display: none; */
+      }
+
+      .user-details .input-box input{
+      margin-top: 1vh !important;
+      margin-bottom: 0px !important;     
+    }
+form .button input {
+      height: 60px !important;
+      width: 60vw !important;
+     margin-top: 3vh !important;
+      font-size: 20px !important;
+     
+    }
+      .logo {
+        font-size: 40px;
+        margin-left: 15px;
+        margin-top: 20px;
+      }
+    td{
+        padding:5px !important;
+        padding-left:10px !important;
+        padding-right:10px !important;
+        text-align:center !important;
+        font-size: 2.5vw !important;
+    }
+    .main{
+      align-text:center !important;
+    }
+    .col{
+      padding-left:0.5vw !important;
+      padding-right:0.5vw !important;
+    }
+   
+    .table1{
+font-size:2vw !important;
+
+    }
+    #dept{
+      font-size: 5vw !important;
+    }
+      .menu a {
+        font-size: 25px;
+        padding-top: 40px;
+        padding-left: 20px;
+        ;
+
+      }
+
+      .user-details .input-box input {
+        height: 40px !important;
+        width: 60vw !important;
+
+        font-size: 20px !important;
+
+        padding-left: 15px !important;
+
+
+      }
+
+    
+      .title {
+        font-size: 40px !important;
+        padding: 0% !important;
+        font-style: normal !important;
+      }
+    }
+
+    .main {
+      width: 100%;
+      height: 100%;
+      text-align: left;
+    }
+
+    .background_color {
+      /*setting the background color using the div class after the nav end*/
+      /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+      height: 100vh;
+      width: 100vw;
+
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+
+  
+
+    .title {
+      font-size: 120px;
+      font-weight: 600;
+      display: inline-block;
+      padding: 16px 150px;
+      /* padding-left: 266px; */
+    }
+
+    .content form .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      text-align: center;
+      justify-content: space-between;
+      margin: 10px 0 12px 0;
+    }
+
+    form .user-details .input-box {
+      /* margin-bottom: 15px; */
+      display: inline-block;
+      margin-top: 40px;
+      /* width: calc(100% / 2 - 20px); */
+    }
+
+    form .input-box span.details {
+      /* display: block; */
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .user-details .input-box input {
+      height: 150px;
+      width: 25vw;
+
+      outline: none;
+      font-size: 47px;
+      border-radius: 37px;
+      padding-left: 15px;
+      text-align: center;
+      margin-top: 80px;
+      display: inline-block;
+      /* margin-left:100px; */
+      border: 2px solid black;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+      /* margin: 11px; */
+      /* margin-left: 140px; */
+    }
+
+    .user-details .input-box input:focus,
+    .user-details .input-box input:valid {
+      border-color: #9b59b6;
+    }
+
+    form .button input {
+      height: 150px;
+      width: 30vw;
+      border-radius: 45px;
+      border: none;
+      color: #fff;
+      font-size: 68px;
+      /* position: fixed; */
+      font-weight: 500;
+      display: inline-block;
+      /* letter-spacing: 1px; */
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+      margin-top: 130px;
+      /* top: 516px; */
+    }
+
+    .line {
+      color: rgb(255 255 255);
+      font-weight: bold;
+      top: 34px;
+      position: fixed;
+      margin-left: 619px;
+    }
+  </style>
+  </form>
+  </div>
+  </div>
+  </form>
+  <script>
+   
+  </script>
+</body>
+</head>
+
+</html>
+

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title> Student Registration Form </title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   </head>
+<body>
+  <div class="modal">
+  <div class="container">
+    <div class="title">Student Registration</div>
+    <div class="content">
+      <form action="/student_register" method="post" id="form1">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details"></span> 
+            <input type="text" placeholder="name" required name="stud_name" id="name">
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="rollno" required oninput="this.value=value.replace(/[^0-9]/g,'');" name="stud_roll" id="roll">
+          </div>
+
+<!--This is the department select tag-->
+          <div class="input-box">
+            <span class="details"></span>
+            <select class="myselect" placeholder="department" required name="stud_dept" id = "dept">
+<!-- <optgroup label="Select your department"></optgroup> -->
+<option class="font_arrange" disabled selected value="">Select your department</option>
+<option class="font_arrange" value="CO1">CO1</option>
+<option class="font_arrange" value="CO2">CO2</option>
+            </select>
+          </div>
+
+          <div class="input-box">
+            <span class="details"></span>
+            <select class="myselect2" placeholder="select your year" required id="select1" onchange="semester_changing()" name="stud_year" id="year" > 
+              <option class="font_arrange" disabled selected value="">Select your year</option>
+              <option class="font_arrange" value="FY">FY</option>
+              <option class="font_arrange" value="SY">SY</option>
+              <option class="font_arrange" value="TY">TY</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="e-mail" required name="email" id="email">
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" id="phonenumber" placeholder="phone number" required oninput="this.value=value.replace(/[^0-9]/g,'');" name="stud_phone" id="phone_number">
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <select class="myselect3" placeholder="semester" required id="select2" name="stud_sem" id = "semester">
+              <option class="font_arrange" disabled selected value="">Select your semester</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="enrollment number" required oninput="this.value=value.replace(/[^0-9]/g,'');" id="enroll">
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="password" required name="stud_pass" id="real_password">
+          </div>
+          <div class="input-box">
+            <span class="details"></span>
+            <input type="text" placeholder="confirm password" required id="confirm_password">
+          </div>
+        </div>
+        <div class="gender-details">
+          <input type="radio" name="gender" id="dot-1">
+          <input type="radio" name="gender" id="dot-2">
+          <input type="radio" name="gender" id="dot-3">
+          
+          <div class="category">
+            <label for="dot-1">
+          
+          </div>
+        </div>
+        <div class="button">
+          <input type="button" value="Register" onclick="validation()">
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+  
+  <% if(locals.unique_error) { %>
+    <script>
+          let error = '<%=unique_error %>';
+      alert(error);
+    </script>
+    <% } %>
+
+    <% if(locals.error) { %>
+      <script>
+            let duperror = '<%= error %>';
+        alert(duperror);
+      </script>
+      <% } %>
+
+<!--MY SCRIPT-->
+  <script>
+    function validation()     
+    {
+      // alert("hello");
+      phonenumber=document.getElementById("phonenumber");
+      roll_no = document.getElementById("roll");
+      enroll = document.getElementById("enroll");
+      name = document.getElementById("name").value;
+      email = document.getElementById("email").value;
+      password = document.getElementById("real_password");
+      cpassword = document.getElementById("confirm_password");
+      form1 = document.getElementById("form1");
+      dept = document.getElementById("dept");
+      year = document.getElementById("year");
+      sem = document.getElementById("semester");
+
+      if(name.length > 5 || name.length!="")
+      {
+        if(email != "")
+        {
+        if(roll_no.value.length ==4 && enroll.value.length ==10 && phonenumber.value.length ==10)
+        {
+          if(password.value.length >= 4  || password.value!="")
+          {
+            if(password.value==cpassword.value)
+            {
+              if(dept.value!="" || year.value != "" || sem.value=="")
+              {
+                form1.submit()
+              }
+              else{alert("Please select options from drop-down box")}
+            }
+            else{ alert ( "Password and Confirm password doesn't match")}
+            
+          }
+          else{alert("Password must be greater than 4")}
+        }else{alert("Please Enter valid number field")}
+      }else{alert ("Please fill the email field")}
+      }else{alert("Please Enter valid name")}
+  }
+
+  function semester_changing()
+  {
+    if(select1.value=="FY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option value='1'> 1 </option> <br>"+"<option value='2'> 2 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+
+    if(select1.value=="SY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option value='3'> 3 </option> <br>"+"<option vlaue='4'> 4 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+
+    if(select1.value=="TY")
+    {
+        temp= "<option disabled selected>Select your semester</option>"+"<option value='5'> 5 </option> <br>"+"<option value='6'> 6 </option> <br>";
+                        document.getElementById("select2").innerHTML=temp;
+    }
+  }
+  </script>
+</body>
+</html>
+
+
+<!--STYLING -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+body{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: linear-gradient(135deg, #50a7e1, #d433d2);
+
+}
+.modal{
+  zoom:355%;
+}
+.container{
+  max-width: 800px;
+  /* width: 80%; */
+  height: 500px;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 35px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+
+.font_arrange{
+  font-size: 0.3vw;
+}
+.container .title{
+  font-size: 25px;
+  font-weight: 600;
+  /* position:relative; */
+  padding: 0px 238px;
+}
+
+.content form .user-details{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+form .user-details .input-box{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+
+.myselect{     /*DEPARTMENT DROP DOWN */
+  width: 100%;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+  /* border: radius 0px; */
+}
+
+.myselect2{     /*YEAR DROP DOWN */
+  width: 100%;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+  /* border: radius 0px; */
+}
+
+.myselect3{     /*SEMESTER DROP DOWN */
+  width: 100%;
+  height: 43px;
+  border-color: #ccc;
+  align-content: center;
+  font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+border-radius: 7px;
+  /* border: radius 0px; */
+}
+
+form .input-box span.details
+{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+.user-details .input-box input{
+  height: 45px;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid{
+  border-color: #9b59b6;
+}
+ form .gender-details .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ form .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ form .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ form .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #9b59b6;
+   border-color: #d9d9d9;
+ }
+ form input[type="radio"]{
+   display: none;
+ }
+
+ form .button{
+  height: 50px;
+   /* height: 45px;
+   margin: 100px 0
+   margin: top 0cm 30px; */
+ }
+ form .button input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #fff; /* button text color*/
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+ }
+ form .button input:hover{
+  /* transform: scale(0.99); */
+  background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+  }
+ @media(max-width: 584px){
+ .container{
+  max-width: 100%;
+}
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  form .category{
+    width: 100%;
+  }
+  .content form .user-details{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-details::-webkit-scrollbar{
+    width: 5px;
+  }
+   .title {
+    font-size: 21px !important;
+    padding: 0px !important;
+   
+}
+  }
+  
+  @media(max-width: 700px){
+    container .title {
+    font-size: 21px !important;
+    padding: none;
+
+   
+}
+.font_arrange{
+    font-size: 3vw;
+}
+
+.myselect2{     /*YEAR DROP DOWN */
+  width: 100%;
+  
+}
+
+.myselect3{     /*SEMESTER DROP DOWN */
+  width: 100%;
+  
+}
+.myselect{     /*DEPARTMENT DROP DOWN */
+  width: 100%;
+  
+}
+.modal{
+  zoom:0% !important;
+}
+
+}
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Domine&family=Poppins:wght@500&display=swap');*/
+/*
+font-family: 'Domine', serif;
+font-family: 'Poppins', sans-serif;
+*/
+</style>

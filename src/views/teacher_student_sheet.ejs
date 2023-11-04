@@ -1,0 +1,39 @@
+<style>
+    table,th,td{
+        border:1px solid black;
+        border-collapse: collapse;
+    }
+
+    th,td{
+        padding:10px;
+        text-align:left;
+    }
+</style>
+<table border ="2"colspan>
+    <tr>
+        <td>
+            Names
+        </td>
+        <% for (var d = 0 ; d < teach_attend.length ; d++) {%>
+            <td>
+                <%= teach_attend[d] %>
+            </td>
+        <% } %>
+    </tr>
+</table>
+
+
+<!-- student presentie -->
+<!-- <% for(var s = 0; s < student_attend.length ; s++) { % >
+<tr>
+    <td>
+        <%- student_attend[s]%>
+    </td>
+    <% for (var i = 0 ; i < teach_attend.length; i++) {
+        if(teach_attend[i]==student_attend[i][subject]) {%>
+            <td>P</td>
+            <%}else{%>
+        <td><b>A</b></td>
+        <%}}%>
+</tr>
+<% } %> -->

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css"/>
+        <title>OTP VERIFICATION</title>
+    </head>
+    <body>
+        <form id = "f1" action = "/verify_otp" method="post">
+            <div class="container">
+                <h2>Verify Your Account</h2>
+                <p>
+                    We send you OTP message on your phone number <br/><br>
+                    Enter the code below to confirm your phone number
+                </p>
+                <input type = "text" name = "ph_no" hidden="true" value = "<%= no %>"  >
+                <textarea name="teacher_data" hidden><%=teacher_data %> </textarea>
+                <!-- <div>
+                    <%= teacher_data %>
+                </div> -->
+<div class="code-container">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no1">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no2">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no3">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no4">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no5">
+    <input type="number" class="code" placeholder="0" min="0" max="9" required name = "no6">
+</div>
+
+<div>
+    <input type="submit" class="btn btn-primary" value="Verify">
+</div>
+
+<small>
+    <!-- if you didn't receive a code !!&nbsp &nbsp &nbsp<a href = "/otp_verification"><strong>RESEND</strong></a>  <strong>RESEND</strong> -->
+</small>
+            </div>
+
+            <script>
+                const codes = document.querySelectorAll('.code')
+
+codes[0].focus()
+
+codes.forEach((code,idx)=>{
+    code.addEventListener('keydown',(e)=>{
+        if(e.key >= 0 && e.key <=9) {
+            codes[idx].value=''
+            setTimeout(() => codes[idx + 1].focus(), 10)
+        } else if(e.key === 'Backspace'){
+            setTimeout(() => codes[idx - 1].focus(), 10)
+        }
+})
+})
+            </script>
+
+            <style>
+                *{
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(135deg, #3baefa, #ac45d4);
+    font-family: "Late", sans-serif;
+    height: 100vh; /*for smoothing the background color and setting the screen size*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+}
+
+.container{
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 1000px;
+    text-align: center;
+    zoom:355%;
+}
+
+.code-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.code{
+    caret-color: transparent;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    border: 1px solid #eee;
+    font-size: 30px;
+    font-family: "Late", sans-serifs;
+    width: 75px;
+    height: 80px;
+    margin: 10px;
+    text-align: center;
+    font-weight: 300;
+}
+
+@media (max-width: 600px) {
+    .code-container{
+        flex-wrap: wrap;
+    }
+    .code{
+        font-size: 24px;
+        height: 50px;
+        max-width: 50px;
+        font-size: bold;
+    }
+}
+
+.code::-webkit-outer-spin-button,
+.code::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+.code:valid{
+    border-color:#9861c2;
+    box-shadow: 0 10px -5px rgba(0, 0, 0,0.25);
+}
+
+.btn{
+    font-family: "Late", sans-serif;
+    min-width: 400px;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0px 0px 20px 0px;
+    padding: 0.77rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7;
+}
+
+.btn-primary{
+    color: #fff;
+    background-color: #9861c2;
+    border-color: #9861c2;
+}
+            </style>
+        </form>
+
+    </body>
+
+    
+</html>

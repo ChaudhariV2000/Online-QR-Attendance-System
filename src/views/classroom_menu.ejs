@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<body id="my">
+    <form id="forme">
+        <header class="header">
+            <a href="#" class="logo">Teacher</a>
+            <input class="side-menu" type="checkbox" id="side-menu" />
+            <label class="hamb" for="side-menu"><span class="hamb-line"></span></label>
+            <nav class="nav">
+                <ul class="menu">
+                    <li id="one" onclick="chnage(this)"><a href="/teacher_student_details"><b id="one" class="b">Students Details</b></a></li> 
+                    <li id="one" onclick="chnage(this)"><a href="/teacher_menu"><b id="one" class="b">Create QR</b></a></li> 
+                    <li id="two" onclick="chnage(this)"><a href="/classroom_attendance"><b class="b">Classroom </b></a> </li>
+                    <li id="three" onclick="chnage(this)""><a href="/logout_teacher"><b class="b" id="three">Logout</b></a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="background_color">
+            <div class="main">
+                <div class="cards">
+                    <form action = "/all_student_attendance" method="post">
+                        <div class="item" id="div1">
+                            <div class="headsub">
+                             <b>   <input type="text" value="<%= teach_data[0].subject %>" name="subject"></b>
+                            </div>
+                            <div class="headdescp" id="hidden">
+                                <p3>Year :&nbsp; </p3>
+                                <input type = "text" value="<%= teach_data[0].year%>" name="year" class="textfield_format">
+                                <p3>Discipline :&nbsp; </p3>
+                                <input type ="text" value="<%= teach_data[0].discipline%>" name="discipline" class="textfield_format">
+                                <p3>Semester :&nbsp; </p3>
+                                <input type="text" value="<%= teach_data[0].semester%>" name="semester" class="textfield_format">
+                                <input type="submit" value="View">
+                            </div>
+                        </div>
+                        </form>
+                        
+                    <% for (let i=0; i < teach_data.length; i++){%>
+                        <form action = "/all_student_attendance" method="post">
+                        <div class="item" >
+                            <div class="headsub">
+                              <b>  <input type="text" value="<%= teach_data[i].subject %>" name="subject" class="subject_head" readonly></b>
+                            </div>
+                            <div class="headdescp">
+                                <p3>Year :&nbsp; </p3>
+                                <input type = "text" value="<%= teach_data[i].year%>" name="year" class="textfield_format" readonly><br>
+                                <p3>Discipline :&nbsp; </p3>
+                                <input type ="text" value="<%= teach_data[i].discipline%>" name="discipline" class="textfield_format" readonly><br>
+                                <p3>Semester :&nbsp; </p3>
+                                <input type="text" value="<%= teach_data[i].semester%>" name="semester" class="textfield_format" readonly><br>
+                                <!-- <input type="submit" value="View" class="viewbtn_style"> -->
+                            </div>
+                             <input type="submit" value="View" class="viewbtn_style">
+                        </div>
+                        </form>
+                        <% } %>
+                </div>
+            </div>
+            <div class="add_button">
+            <input type="button" value="+" id="bt1" onclick="redirect()">
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+        function redirect()
+        {
+            add = document.getElementById("redirect");
+            window.location.href="/create_classroom";
+            
+        }
+    </script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+        .add_button {
+    margin-top: 55vh;
+    margin-right: 1vw;
+    margin-left:93vw;
+    /* float: left; */
+    position: fixed;
+}
+
+
+        #bt1 {
+    width: 189px;
+    height: 171px;
+    font-size: 3vw;
+    
+    /* border: 1px solid gray; */
+    border:1px solid black;
+    background: black;
+    color: wheat;
+    border-radius: 65vh;
+}
+        /* import font */
+        .headsub {
+            width: 100%;
+            height: 5vh;
+            border: 2px;
+
+            border-top-left-radius: 2vw;
+            border-top-right-radius: 2vw;
+            background-color: rgba(18, 72, 91, 0.863);
+        }
+
+        #my {
+            zoom: 100%;
+        }
+
+        :root {
+            --white: #f9f9f9;
+            --black: #36383F;
+            --gray: #85888C;
+        }
+
+        /* variables*/
+
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--white);
+            font-family: "Poppins", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .header {
+            background-color: var(--black);
+            box-shadow: 1px 1px 5px 0px var(--gray);
+            position: sticky;
+            top: 0;
+            height: 200px;
+            ;
+            border: 2px solid white;
+            width: 100%;
+        }
+
+        /* Logo */
+        .logo {
+            display: inline-block;
+            color: var(--white);
+            font-size: 100px;
+            margin-left: 80px;
+            /* text-align: center; */
+            margin-top: 25px;
+        }
+
+        .nav {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: var(--black);
+            overflow: hidden;
+
+        }
+
+        .menu a {
+
+            display: block;
+            padding-top: 80px;
+            ;
+            padding-right: 320px;
+            font-size: 60px;
+            color: var(--white);
+        }
+
+        .menu a:hover {
+            background-color: var(--white);
+
+        }
+
+        .nav {
+            max-height: 0;
+            transition: max-height .5s ease-out;
+        }
+
+        .hamb {
+            cursor: pointer;
+            float: right;
+            padding: 40px 20px;
+        }
+
+        .hamb-line {
+            background: var(--white);
+            display: block;
+            height: 2px;
+            position: relative;
+            width: 24px;
+        }
+
+        .hamb-line::before,
+        .hamb-line::after {
+            background: var(--white);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            transition: all .2s ease-out;
+            width: 100%;
+        }
+
+        .hamb-line::before {
+            top: 5px;
+        }
+
+        .hamb-line::after {
+            top: -5px;
+        }
+
+        .side-menu {
+            display: none;
+        }
+
+        .side-menu:checked~nav {
+            max-height: 100%;
+        }
+
+        .side-menu:checked~.hamb .hamb-line {
+            background: transparent;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::before {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        .side-menu:checked~.hamb .hamb-line::after {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .cards {
+            display: inline-block;
+            width: 80vw;
+            margin-top: 1vh;
+
+        }
+
+        body {
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+
+        }
+        #div1{
+            display:none;
+        }
+
+        .item {
+            width: 12vw;
+            height: 15vw;
+            margin: 2vw;
+            display: inline-block;
+            float: left;
+            box-shadow: 1.5vw 1.5vw #140b0b7b;
+            background-color: rgba(233, 214, 214, 0.963);
+            border-radius: 110px;
+            border: 2px solid black;
+            /* background-color: red; */
+        }
+        #div1{
+            display:none;
+        }
+        .textfield_format{
+            background:transparent;
+            font-size: 1vw;
+            color: #070912b2;
+            size:40px;
+            width:2vw;
+           
+            border:none;
+            /* display:none; */
+        }
+        .textfield_format:focus{
+          outline:none;
+        }
+
+        .subject_head{
+            background:transparent;
+            font-size: 1.5vw;
+            font-style: bold;
+            color: white;
+            text-align: center;
+            border:none;
+            width:12vw;
+            padding-top:1vh;
+
+        }
+        .subject_head:focus{
+            outline:none;
+
+        }
+
+        .viewbtn_style {
+    width: 5vw;
+    height: 3vh; 
+    margin-top: 0px;
+    font-size: 1vw;
+ 
+    background: whitesmoke;
+    border-radius: 40px;
+    box-shadow: 6px 7px gray;
+}
+        @media screen and (min-height:380px) {}
+
+        @media (min-width: 768px) {
+            .nav {
+                max-height: none;
+                top: 0;
+                position: relative;
+                float: right;
+                width: fit-content;
+                background-color: transparent;
+            }
+
+            .menu li {
+                float: left;
+            }
+
+            .menu a:hover {
+                background-color: transparent;
+                color: var(--gray);
+
+
+            }
+
+            .hamb {
+                display: none;
+            }
+
+
+        }
+
+        @media (max-height:380px) {
+            /* .item{
+                width:75vw;
+                height:40vh;
+                border-radius: 13px;
+                margin-top: 5vh;
+                display: none
+                ;
+            } */
+
+
+
+        }
+
+        @media screen and (max-width:700px) {
+            .header {
+                height: 90px;
+                /* display: none; */
+            }
+
+
+
+
+            .logo {
+                font-size: 40px;
+                margin-left: 15px;
+                margin-top: 20px;
+            }
+
+            .menu a {
+                font-size: 25px;
+                padding-top: 40px;
+                padding-left: 20px;
+                ;
+
+            }
+
+            .item {
+                width: 75vw;
+                height: 40vh;
+                border-radius: 13px;
+                margin-top: 5vh;
+            }
+
+            p2 {
+                font-size: 7vw !important;
+            }
+
+            p3 {
+                font-size: 6vw !important;
+                margin-top: 2vh !important;
+            }
+
+            p4 {
+                font-size: 5.5vw !important;
+            }
+            .subject_head{
+                font-size: 4.5vw !important;
+            }
+            .textfield_format {
+    background: transparent;
+    font-size: 5vw !important;
+    color: #070912b2;
+    size: 16px !important;
+    width: 10vw !important;
+    border: none;
+    /* display: none; */
+}
+
+            .viewbtn_style {
+    width: 24vw !important;
+    height: 3vh !important;
+    font-size: 4vw !important;
+    margin-top: 1vh !important;
+    margin-left: 26vw !important;
+    display: block;
+    background: whitesmoke;
+    border-radius: 40px;
+    box-shadow: 6px 7px gray;
+}
+            .headdescp {
+                width: 54vw !important;
+                height: 28vh !important;
+
+            }
+            .add_button{
+                width:40px;
+                height: 60px;
+                margin-left: 80vw;
+            }
+            #bt1 {
+    width: 61px;
+    height: 61px;
+    font-size: 46px;
+}
+            .item {
+                box-shadow: 6.5vw 6.5vw #140b0b7b;
+            }
+
+        }
+
+        .main {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        .headdescp {
+            width: 10vw;
+            height: 18vh;
+            display: inline-block;
+            align-items: left;
+            background-color: rgba(255, 255, 255, 0.663);
+        }
+
+        .background_color {
+            /* /setting the background color using the div class after the nav end/ */
+            /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+            height: 100vh;
+            width: 100vw;
+
+            display: flex;
+            align-items: center;
+            align-content: center;
+        }
+
+        p2 {
+            font-size: 1.5vw;
+            font-style: bold;
+            color: white;
+            text-align: center;
+
+
+        }
+
+        p3 {
+            font-size: 1vw;
+            color: black;
+            text-align: left;
+            display: inline-block;
+            margin-top: 1.8vh;
+            font-style: bold;
+            /* padding: 20px;; */
+        }
+
+        p4 {
+            font-size: 0.9vw;
+            color: #070912b2;
+
+        }
+        
+
+
+
+
+
+
+
+        .line {
+            color: rgb(255 255 255);
+            font-weight: bold;
+            top: 34px;
+            position: fixed;
+            margin-left: 619px;
+        }
+        .viewbtn_style {
+    width: 5vw;
+    height: 3vh; 
+    margin-top: 40px;
+    font-size: 1vw;
+ 
+    background: whitesmoke;
+    border-radius: 40px;
+    box-shadow: 6px 7px gray;
+}
+    </style>
+    </form>
+    </div>
+    </div>
+    </form>
+    <script>
+        function semester_changing() {
+            if (select1.value == "first") {
+                temp = "<option disabled selected>Select your semester</option>" + "<option></option>" + "<option value=' '></option" + "<option> first </option> <br>" + "<option> second </option> <br>";
+                document.getElementById("select2").innerHTML = temp;
+            }
+
+            if (select1.value == "second") {
+                temp = "<option disabled selected>Select your semester</option>" + "<option></option>" + "<option value=' '></option" + "<option> third </option> <br>" + "<option> fourth </option> <br>";
+                document.getElementById("select2").innerHTML = temp;
+            }
+
+            if (select1.value == "third") {
+                temp = "<option disabled selected>Select your semester</option>" + "<option></option>" + "<option value=' '></option" + "<option> fifth </option> <br>" + "<option> sixth </option> <br>";
+                document.getElementById("select2").innerHTML = temp;
+            }
+
+
+            // FIRST YEAR SUBJECT SELECTION 
+            if (select1.value == "first") {
+                temp = "<option disabled selected>Select your subject</option>" + "<option></option>" +
+                    "<option disabled>first semester subjects</option>" +
+                    "<option value=' '></option" + "<option> ENG </option> <br>" +
+                    "<option> BSC(PHY) </option> <br>" + "<option> BSC(CHEM) </option> <br>"
+                    + "<option> BMS </option> <br>" + "<option> ICT </option> <br>" + "<option> EGE </option> <br>"
+                    + "<option> WPC </option> <br>" + "<option>  </option> <br>" +
+                    "<option disabled> second semester subjects </option> <br>" +
+                    "<option> EEC </option> <br>" + "<option> AMI </option> <br>" +
+                    "<option> BEC </option> <br>" + "<option> PIC </option> <br>" +
+                    "<option> BCC </option> <br>" + "<option> CPH </option> <br>" + "<option> WPD </option> <br>";
+                document.getElementById("select4").innerHTML = temp;
+            }
+
+
+            //SECOND YEAR SUBJECT SELECTION 
+            if (select1.value == "second") {
+                temp = "<option disabled selected>Select your subject</option>" + "<option></option>" + "<option disabled>third semester subjects</option>" + "<option value=' '></option" + "<option> OOP </option> <br>" + "<option> DSU </option> <br>" + "<option> CGR </option> <br>" + "<option> DMS </option> <br>" + "<option> DTE </option> <br>" + "<option>  </option> <br>" + "<option disabled> fourth semester subjects </option> <br>" + "<option> JPR </option> <br>" + "<option> SEN </option> <br>" + "<option> DCC </option> <br>" + "<option> MIC </option> <br>" + "<option> GAD </option> <br>";
+                document.getElementById("select4").innerHTML = temp;
+            }
+
+            //THIRD YEAR SUBJECT SELECTION 
+            if (select1.value == "third") {
+                temp = "<option disabled selected>Select your subject</option>" + "<option></option>" + "<option disabled>fifth semester subjects</option>" + "<option value=' '></option" + "<option> EST </option> <br>" + "<option> OSY </option> <br>" + "<option> AJP </option> <br>" + "<option> STE </option> <br>" + "<option> CSS </option> <br>" + "<option>  </option> <br>" + "<option disabled> sixth semester subjects </option> <br>" + "<option> MGT </option> <br>" + "<option> PWP </option> <br>" + "<option> MAD </option> <br>" + "<option> ETI </option> <br>" + "<option> WBP </option> <br>" + "<option> EDE </option> <br>";
+                document.getElementById("select4").innerHTML = temp;
+            }
+        }
+    </script>
+</body>
+</head>
+
+</html>
